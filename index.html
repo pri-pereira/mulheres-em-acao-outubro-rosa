@@ -237,8 +237,8 @@
 
     .frames-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
       width: 100%;
     }
 
@@ -699,7 +699,17 @@
 
     <!-- Card de Conscientização -->
     <section class="awareness-card">
-      <div class="awareness-icon">🎗️</div>
+      <div class="awareness-icon" title="Laço Rosa Outubro Rosa">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C9.5 2 7.8 3.8 7.2 6.2C6.5 9 7.8 11.5 9.5 13.5L5 21.5C4.6 22.2 5.1 23 5.9 23C6.3 23 6.7 22.8 6.9 22.4L11.2 14.8C11.5 14.8 11.7 14.8 12 14.8C12.3 14.8 12.5 14.8 12.8 14.8L17.1 22.4C17.3 22.8 17.7 23 18.1 23C18.9 23 19.4 22.2 19 21.5L14.5 13.5C16.2 11.5 17.5 9 16.8 6.2C16.2 3.8 14.5 2 12 2ZM12 4.2C13.5 4.2 14.6 5.3 14.9 6.8C15.3 8.7 14.2 10.6 12.8 12.2C12.3 12.1 11.7 12.1 11.2 12.2C9.8 10.6 8.7 8.7 9.1 6.8C9.4 5.3 10.5 4.2 12 4.2Z" fill="url(#pinkRibbonGrad)"/>
+          <defs>
+            <linearGradient id="pinkRibbonGrad" x1="5" y1="2" x2="19" y2="23" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ff4081"/>
+              <stop offset="1" stop-color="#d81b60"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
       <div class="awareness-content">
         <h3>Prevenir é viver bem</h3>
         <p>O diagnóstico precoce salva vidas. Realize seu autoexame e agende sua mamografia.</p>
@@ -710,7 +720,7 @@
     <section class="frames-preview-section">
       <div class="section-title">
         <span>Escolha sua moldura</span>
-        <span style="font-size: 0.8rem; font-weight: 500; color: var(--primary);">4 opções</span>
+        <span style="font-size: 0.8rem; font-weight: 500; color: var(--primary);">3 opções</span>
       </div>
       <div class="frames-grid">
         <div class="frame-thumb-card active" onclick="selectFrameIndex(1)" id="thumb-1">
@@ -724,10 +734,6 @@
         <div class="frame-thumb-card" onclick="selectFrameIndex(3)" id="thumb-3">
           <img src="moldura3.png" alt="Moldura 3" loading="lazy">
           <span class="frame-thumb-label">Moldura 3</span>
-        </div>
-        <div class="frame-thumb-card" onclick="selectFrameIndex(4)" id="thumb-4">
-          <img src="moldura4.png" alt="Moldura 4" loading="lazy">
-          <span class="frame-thumb-label">Moldura 4</span>
         </div>
       </div>
     </section>
@@ -748,7 +754,8 @@
     <!-- Rodapé -->
     <footer>
       <p>Campanha Outubro Rosa • Mulheres em Ação</p>
-      <p style="font-size: 0.75rem; margin-top: 4px; opacity: 0.8;">Juntas somos mais fortes na prevenção.</p>
+      <p style="font-size: 0.85rem; margin-top: 5px; font-weight: 600; color: var(--primary);">Juntas somos mais fortes na prevenção.</p>
+      <p style="font-size: 0.95rem; margin-top: 4px; font-weight: 700; color: var(--text-main); letter-spacing: 0.3px;">Volkswagen PU Taubaté</p>
     </footer>
 
   </div>
@@ -779,7 +786,6 @@
         <button class="frame-btn selected" onclick="selectFrameIndex(1)" id="btn-frame-1">Moldura 1</button>
         <button class="frame-btn" onclick="selectFrameIndex(2)" id="btn-frame-2">Moldura 2</button>
         <button class="frame-btn" onclick="selectFrameIndex(3)" id="btn-frame-3">Moldura 3</button>
-        <button class="frame-btn" onclick="selectFrameIndex(4)" id="btn-frame-4">Moldura 4</button>
       </div>
 
       <!-- Botão Disparador (Visível no modo Câmera) -->
@@ -842,7 +848,7 @@
       frameOverlay.src = frameSrc;
 
       // Atualiza botões no modal
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 3; i++) {
         const btn = document.getElementById(`btn-frame-${i}`);
         const thumb = document.getElementById(`thumb-${i}`);
         if (btn) btn.classList.toggle('selected', i === index);
@@ -1064,7 +1070,7 @@
               const file = new File([blob], fileName, { type: 'image/png' });
               await navigator.share({
                 title: 'Mulheres em Ação | Outubro Rosa',
-                text: 'Eu apoio a campanha Outubro Rosa! Cuidar de si é um ato de amor e coragem. 🌸🎗️',
+                text: 'Eu apoio a campanha Outubro Rosa! Cuidar de si é um ato de amor e coragem. 🌸🎀\nVolkswagen PU Taubaté',
                 files: [file]
               });
               showToast('Compartilhado com sucesso! 🌸');

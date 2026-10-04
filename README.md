@@ -1,6 +1,7 @@
-# Mulheres em Ação | Outubro Rosa 🌸🎗️
+# Mulheres em Ação | Outubro Rosa 🌸🎀
+**Volkswagen PU Taubaté**
 
-Web App Mobile-First desenvolvida para a campanha do **Outubro Rosa - Mulheres em Ação**, permitindo que os participantes capturem fotos ou escolham da galeria, apliquem molduras temáticas personalizadas em alta definição (1080x1920) e compartilhem nas redes sociais (Instagram Stories, WhatsApp) ou façam download direto.
+Web App Mobile-First desenvolvida para a campanha do **Outubro Rosa - Mulheres em Ação (Volkswagen PU Taubaté)**, permitindo que os participantes capturem fotos ou escolham da galeria, apliquem molduras temáticas personalizadas em alta definição (1080x1920) e compartilhem nas redes sociais (Instagram Stories, WhatsApp) ou façam download direto.
 
 ---
 
@@ -8,7 +9,7 @@ Web App Mobile-First desenvolvida para a campanha do **Outubro Rosa - Mulheres e
 
 - 📱 **Mobile-First & PWA Ready:** Projetada especificamente para acesso rápido via leitura de **QR Code** no smartphone durante eventos e ações presenciais.
 - 📸 **Câmera Integrada ao Vivo:** Permite captura instantânea com alternância entre câmera frontal (selfie) e câmera traseira.
-- 🖼️ **4 Molduras Exclusivas (1080x1920):** Troca dinâmica e em tempo real sobre o visor da câmera.
+- 🖼️ **3 Molduras Exclusivas (1080x1920):** Troca dinâmica e em tempo real sobre o visor da câmera.
 - 📁 **Suporte a Galeria:** Opção de selecionar foto da galeria do aparelho caso prefira ou caso a câmera esteja indisponível.
 - 🎨 **Processamento em Alta Resolução:** Canvas 1080x1920 que une a foto e a moldura mantendo proporção ideal para Stories / Status.
 - 📲 **Compartilhamento Nativo & Download:** Integração com o menu de compartilhamento do smartphone (`Web Share API`) e download direto em PNG.
@@ -25,7 +26,6 @@ camera-outubro-rosa/
 ├── moldura1.png      # Moldura 1 (1080x1920 PNG transparente)
 ├── moldura2.png      # Moldura 2 (1080x1920 PNG transparente)
 ├── moldura3.png      # Moldura 3 (1080x1920 PNG transparente)
-├── moldura4.png      # Moldura 4 (1080x1920 PNG transparente)
 └── README.md         # Documentação e instruções de deploy
 ```
 
