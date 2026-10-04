@@ -9,6 +9,18 @@
   <meta name="description" content="Mulheres em Ação | Campanha Outubro Rosa. Cuidar de si é um ato de amor e coragem. Registre seu apoio e compartilhe sua foto com moldura personalizada.">
   <title>Mulheres em Ação | Outubro Rosa</title>
 
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <!-- Open Graph / Redes Sociais -->
+  <meta property="og:title" content="Mulheres em Ação | Outubro Rosa - Volkswagen PU Taubaté">
+  <meta property="og:description" content="Cuidar de si é um ato de amor e coragem. Registre seu apoio e compartilhe sua foto com moldura personalizada.">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:type" content="website">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -392,8 +404,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 4px;
-      z-index: 10;
+      padding: 6px 4px;
+      z-index: 25;
+      gap: 8px;
     }
 
     .icon-btn {
@@ -410,6 +423,7 @@
       justify-content: center;
       cursor: pointer;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }
     .icon-btn:active {
       transform: scale(0.92);
@@ -419,52 +433,107 @@
     .camera-status-text {
       color: #fff;
       font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
       text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    /* Viewport da Câmera / 9:16 Aspect Ratio */
-    .camera-viewport-wrapper {
+    .btn-fit-mode {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-fit-mode:active {
+      transform: scale(0.95);
+      background: var(--primary);
+    }
+
+    /* Container de Adaptação Dinâmica para Qualquer Tela */
+    .camera-viewport-container {
       position: relative;
+      flex: 1;
       width: 100%;
-      max-width: 420px;
-      height: 100%;
-      max-height: calc(100vh - 210px);
-      aspect-ratio: 9/16;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      background: #000;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      min-height: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      padding: 4px 0;
     }
 
-    video#camera-video {
+    .camera-viewport-wrapper {
+      position: relative;
+      /* Adapta-se à proporção 9:16 máxima cabível na tela útil */
+      height: 100%;
+      max-height: calc(100vh - 185px);
+      max-height: calc(100dvh - 185px);
+      width: auto;
+      aspect-ratio: 9 / 16;
+      max-width: 100%;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: none;
+      user-select: none;
+      transition: width 0.3s ease, aspect-ratio 0.3s ease;
+    }
+
+    /* Modo Preencher Tela Cheia Opcional */
+    .camera-viewport-wrapper.fit-cover-mode {
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: auto;
+    }
+
+    .camera-media-layer {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+      cursor: grab;
+      z-index: 1;
+    }
+    .camera-media-layer:active {
+      cursor: grabbing;
+    }
+
+    video#camera-video, img#captured-photo-preview {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      pointer-events: none;
+    }
+
+    video#camera-video {
       transform: scaleX(-1); /* Padrão selfie espelhado */
     }
 
     video#camera-video.unmirror {
       transform: scaleX(1);
-    }
-
-    /* Imagem congelada no preview */
-    img#captured-photo-preview {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-      z-index: 2;
     }
 
     /* Moldura sobreposta no vídeo */
@@ -476,7 +545,82 @@
       height: 100%;
       object-fit: contain;
       pointer-events: none;
-      z-index: 3;
+      z-index: 5;
+      transition: object-fit 0.25s ease;
+    }
+
+    .camera-viewport-wrapper.fit-cover-mode img#frame-overlay {
+      object-fit: cover;
+    }
+
+    /* Painel de Ajustes de Zoom e Reset */
+    .floating-adjust-panel {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    .adjust-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(20, 15, 25, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: all 0.2s ease;
+    }
+    .adjust-btn:active {
+      transform: scale(0.9);
+      background: var(--primary);
+    }
+
+    .zoom-badge {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: var(--radius-full);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    /* Dica Flutuante de Arrastar/Ajustar */
+    .drag-hint-badge {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(25, 12, 22, 0.85);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 20;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: opacity 0.4s ease;
+    }
+    .drag-hint-badge.fade-out {
+      opacity: 0;
     }
 
     /* Efeito de Flash na captura */
@@ -699,16 +843,8 @@
 
     <!-- Card de Conscientização -->
     <section class="awareness-card">
-      <div class="awareness-icon" title="Laço Rosa Outubro Rosa">
-        <svg viewBox="0 0 24 24" width="34" height="34" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C9.5 2 7.8 3.8 7.2 6.2C6.5 9 7.8 11.5 9.5 13.5L5 21.5C4.6 22.2 5.1 23 5.9 23C6.3 23 6.7 22.8 6.9 22.4L11.2 14.8C11.5 14.8 11.7 14.8 12 14.8C12.3 14.8 12.5 14.8 12.8 14.8L17.1 22.4C17.3 22.8 17.7 23 18.1 23C18.9 23 19.4 22.2 19 21.5L14.5 13.5C16.2 11.5 17.5 9 16.8 6.2C16.2 3.8 14.5 2 12 2ZM12 4.2C13.5 4.2 14.6 5.3 14.9 6.8C15.3 8.7 14.2 10.6 12.8 12.2C12.3 12.1 11.7 12.1 11.2 12.2C9.8 10.6 8.7 8.7 9.1 6.8C9.4 5.3 10.5 4.2 12 4.2Z" fill="url(#pinkRibbonGrad)"/>
-          <defs>
-            <linearGradient id="pinkRibbonGrad" x1="5" y1="2" x2="19" y2="23" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#ff4081"/>
-              <stop offset="1" stop-color="#d81b60"/>
-            </linearGradient>
-          </defs>
-        </svg>
+      <div class="awareness-icon" title="Laço Rosa Oficial Outubro Rosa">
+        <img src="laco_rosa.png" alt="Laço Rosa Outubro Rosa" style="width: 34px; height: auto; display: block; filter: drop-shadow(0 3px 6px rgba(216, 27, 96, 0.3));">
       </div>
       <div class="awareness-content">
         <h3>Prevenir é viver bem</h3>
@@ -766,16 +902,42 @@
     <!-- Top Bar -->
     <div class="camera-top-bar">
       <button class="icon-btn" id="btn-close-camera" title="Fechar">✕</button>
-      <div class="camera-status-text" id="camera-status">Outubro Rosa</div>
+      <button class="btn-fit-mode" id="btn-toggle-fit" title="Alternar Enquadramento da Moldura">
+        <span id="fit-mode-icon">📐</span>
+        <span id="fit-mode-text">Moldura 9:16</span>
+      </button>
       <button class="icon-btn" id="btn-switch-camera" title="Inverter Câmera">🔄</button>
     </div>
 
-    <!-- Viewport da Câmera -->
-    <div class="camera-viewport-wrapper">
-      <video id="camera-video" autoplay playsinline muted></video>
-      <img id="captured-photo-preview" alt="Foto capturada">
-      <img id="frame-overlay" src="moldura1.png" alt="Moldura">
-      <div class="flash-overlay" id="flash-overlay"></div>
+    <!-- Container Dinâmico e Viewport da Câmera -->
+    <div class="camera-viewport-container">
+      <div class="camera-viewport-wrapper" id="camera-viewport-wrapper">
+        
+        <!-- Camada de Mídia (Vídeo ou Foto Capturada com Suporte a Pan e Zoom) -->
+        <div class="camera-media-layer" id="camera-media-layer">
+          <video id="camera-video" autoplay playsinline muted></video>
+          <img id="captured-photo-preview" alt="Foto capturada">
+        </div>
+
+        <!-- Moldura Sobreposta -->
+        <img id="frame-overlay" src="moldura1.png" alt="Moldura">
+        
+        <!-- Painel Flutuante de Ajustes (Zoom & Reset) -->
+        <div class="floating-adjust-panel">
+          <button class="adjust-btn" id="btn-zoom-in" title="Aumentar Zoom">＋</button>
+          <span class="zoom-badge" id="zoom-badge">1.0x</span>
+          <button class="adjust-btn" id="btn-zoom-out" title="Diminuir Zoom">－</button>
+          <button class="adjust-btn" id="btn-reset-adjust" title="Recentralizar Foto">↺</button>
+        </div>
+
+        <!-- Dica de Interatividade -->
+        <div class="drag-hint-badge" id="drag-hint-badge">
+          👆 Arraste ou use o zoom para enquadrar na moldura
+        </div>
+
+        <!-- Efeito de Flash -->
+        <div class="flash-overlay" id="flash-overlay"></div>
+      </div>
     </div>
 
     <!-- Controles Inferiores -->
@@ -822,9 +984,22 @@
     let currentFacingMode = 'user'; // 'user' (selfie) ou 'environment' (traseira)
     let capturedImageSource = null; // elemento Image ou Video para o Canvas
     let isCaptured = false;
+    let isFitCoverMode = false; // true = expandir para preencher tela
+
+    // Estados de Ajuste Interativo (Pan & Zoom)
+    let zoomLevel = 1.0;
+    let panX = 0;
+    let panY = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let initialPanX = 0;
+    let initialPanY = 0;
 
     // Elementos DOM
     const cameraModal = document.getElementById('camera-modal');
+    const cameraViewportWrapper = document.getElementById('camera-viewport-wrapper');
+    const cameraMediaLayer = document.getElementById('camera-media-layer');
     const cameraVideo = document.getElementById('camera-video');
     const capturedPhotoPreview = document.getElementById('captured-photo-preview');
     const frameOverlay = document.getElementById('frame-overlay');
@@ -832,6 +1007,14 @@
     const btnOpenCamera = document.getElementById('btn-open-camera');
     const btnCloseCamera = document.getElementById('btn-close-camera');
     const btnSwitchCamera = document.getElementById('btn-switch-camera');
+    const btnToggleFit = document.getElementById('btn-toggle-fit');
+    const fitModeIcon = document.getElementById('fit-mode-icon');
+    const fitModeText = document.getElementById('fit-mode-text');
+    const btnZoomIn = document.getElementById('btn-zoom-in');
+    const btnZoomOut = document.getElementById('btn-zoom-out');
+    const btnResetAdjust = document.getElementById('btn-reset-adjust');
+    const zoomBadge = document.getElementById('zoom-badge');
+    const dragHintBadge = document.getElementById('drag-hint-badge');
     const btnShutter = document.getElementById('btn-shutter');
     const btnRetake = document.getElementById('btn-retake');
     const btnSave = document.getElementById('btn-save');
@@ -865,9 +1048,108 @@
       }, duration);
     }
 
+    // Atualiza Transformação Visual (Pan & Zoom)
+    function updateMediaTransform() {
+      // Limita o deslocamento para não sair da tela
+      const maxPanX = (zoomLevel - 1) * 200 + 150;
+      const maxPanY = (zoomLevel - 1) * 350 + 250;
+      panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
+      panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
+
+      const mirror = (currentFacingMode === 'user' && !isCaptured) ? -1 : 1;
+      cameraMediaLayer.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomLevel * mirror}, ${zoomLevel})`;
+      zoomBadge.textContent = `${zoomLevel.toFixed(1)}x`;
+    }
+
+    // Reset de Ajustes
+    function resetAdjustments() {
+      zoomLevel = 1.0;
+      panX = 0;
+      panY = 0;
+      updateMediaTransform();
+    }
+
+    // Controles de Arrastar / Reposicionar Foto (Touch & Mouse)
+    function onPointerDown(e) {
+      isDragging = true;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      startX = clientX;
+      startY = clientY;
+      initialPanX = panX;
+      initialPanY = panY;
+
+      if (dragHintBadge) {
+        dragHintBadge.classList.add('fade-out');
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const dx = clientX - startX;
+      const dy = clientY - startY;
+
+      // Inverte horizontalmente em modo selfie ao vivo para o toque acompanhar o movimento natural
+      const dirX = (currentFacingMode === 'user' && !isCaptured) ? -1 : 1;
+      panX = initialPanX + (dx * dirX);
+      panY = initialPanY + dy;
+      updateMediaTransform();
+    }
+
+    function onPointerUp() {
+      isDragging = false;
+    }
+
+    cameraViewportWrapper.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup', onPointerUp);
+
+    cameraViewportWrapper.addEventListener('touchstart', onPointerDown, { passive: true });
+    window.addEventListener('touchmove', onPointerMove, { passive: true });
+    window.addEventListener('touchend', onPointerUp);
+
+    // Botões de Zoom
+    btnZoomIn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (zoomLevel < 2.5) {
+        zoomLevel = Math.min(2.5, +(zoomLevel + 0.15).toFixed(2));
+        updateMediaTransform();
+      }
+    });
+
+    btnZoomOut.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (zoomLevel > 1.0) {
+        zoomLevel = Math.max(1.0, +(zoomLevel - 0.15).toFixed(2));
+        updateMediaTransform();
+      }
+    });
+
+    btnResetAdjust.addEventListener('click', (e) => {
+      e.stopPropagation();
+      resetAdjustments();
+      showToast('Enquadramento recentralizado ↺');
+    });
+
+    // Alternar Modo de Ajuste da Moldura (9:16 vs Preencher Tela)
+    btnToggleFit.addEventListener('click', () => {
+      isFitCoverMode = !isFitCoverMode;
+      cameraViewportWrapper.classList.toggle('fit-cover-mode', isFitCoverMode);
+      if (isFitCoverMode) {
+        fitModeIcon.textContent = '📱';
+        fitModeText.textContent = 'Tela Cheia';
+        showToast('Moldura expandida para cobrir toda a tela do celular 📱');
+      } else {
+        fitModeIcon.textContent = '📐';
+        fitModeText.textContent = 'Moldura 9:16';
+        showToast('Moldura ajustada na proporção 9:16 integral 📐');
+      }
+    });
+
     // Inicialização da Câmera
     async function startCamera() {
-      // Para stream anterior se houver
       stopCamera();
 
       try {
@@ -884,25 +1166,32 @@
         cameraVideo.srcObject = cameraStream;
         await cameraVideo.play();
 
-        // Controla o espelhamento do vídeo
+        // Controla espelhamento da câmera
         if (currentFacingMode === 'user') {
           cameraVideo.classList.remove('unmirror');
         } else {
           cameraVideo.classList.add('unmirror');
         }
 
-        // Restaura estados visuais
         cameraVideo.style.display = 'block';
         capturedPhotoPreview.style.display = 'none';
         captureActions.style.display = 'flex';
         reviewActions.classList.remove('active');
         isCaptured = false;
         capturedImageSource = null;
+        resetAdjustments();
+
+        // Reexibe dica por alguns segundos
+        if (dragHintBadge) {
+          dragHintBadge.classList.remove('fade-out');
+          setTimeout(() => {
+            dragHintBadge.classList.add('fade-out');
+          }, 4500);
+        }
 
       } catch (err) {
         console.error('Erro ao acessar câmera:', err);
         showToast('⚠️ Permissão de câmera necessária ou não suportada.');
-        // Permite usar a galeria como fallback
         fileInput.click();
       }
     }
@@ -942,13 +1231,11 @@
       flashOverlay.classList.add('trigger');
       setTimeout(() => flashOverlay.classList.remove('trigger'), 200);
 
-      // Congela a foto no canvas temporário
       const tempCanvas = document.createElement('canvas');
       tempCanvas.width = cameraVideo.videoWidth || 1080;
       tempCanvas.height = cameraVideo.videoHeight || 1920;
       const tCtx = tempCanvas.getContext('2d');
 
-      // Se for selfie, espelha para salvar igual ao visualizador
       if (currentFacingMode === 'user') {
         tCtx.translate(tempCanvas.width, 0);
         tCtx.scale(-1, 1);
@@ -964,10 +1251,10 @@
         capturedPhotoPreview.style.display = 'block';
         cameraVideo.style.display = 'none';
 
-        // Alterna os botões para revisão
         captureActions.style.display = 'none';
         reviewActions.classList.add('active');
         isCaptured = true;
+        updateMediaTransform();
       };
       img.src = capturedDataUrl;
     });
@@ -980,6 +1267,7 @@
       reviewActions.classList.remove('active');
       isCaptured = false;
       capturedImageSource = null;
+      resetAdjustments();
     });
 
     // Upload alternativo da Galeria
@@ -1002,6 +1290,12 @@
           captureActions.style.display = 'none';
           reviewActions.classList.add('active');
           isCaptured = true;
+          resetAdjustments();
+
+          if (dragHintBadge) {
+            dragHintBadge.classList.remove('fade-out');
+            setTimeout(() => dragHintBadge.classList.add('fade-out'), 4500);
+          }
         };
         img.src = event.target.result;
       };
@@ -1023,31 +1317,44 @@
       hiddenCanvas.height = height;
       const ctx = hiddenCanvas.getContext('2d');
 
-      // Limpa canvas
       ctx.clearRect(0, 0, width, height);
 
-      // Desenha imagem de fundo mantendo aspect ratio 9:16 (cover)
+      // Dimensões nativas da foto do usuário
       const imgW = capturedImageSource.naturalWidth || capturedImageSource.width;
       const imgH = capturedImageSource.naturalHeight || capturedImageSource.height;
 
       const canvasRatio = width / height;
       const imgRatio = imgW / imgH;
 
-      let drawW, drawH, drawX, drawY;
+      let baseW, baseH, baseX, baseY;
 
       if (imgRatio > canvasRatio) {
-        drawH = height;
-        drawW = imgW * (height / imgH);
-        drawX = (width - drawW) / 2;
-        drawY = 0;
+        baseH = height;
+        baseW = imgW * (height / imgH);
+        baseX = (width - baseW) / 2;
+        baseY = 0;
       } else {
-        drawW = width;
-        drawH = imgH * (width / imgW);
-        drawX = 0;
-        drawY = (height - drawH) / 2;
+        baseW = width;
+        baseH = imgH * (width / imgW);
+        baseX = 0;
+        baseY = (height - baseH) / 2;
       }
 
-      ctx.drawImage(capturedImageSource, drawX, drawY, drawW, drawH);
+      // Mapeia deslocamento e zoom da tela do celular para as dimensões do Canvas (1080x1920)
+      const rect = cameraViewportWrapper.getBoundingClientRect();
+      const scaleCanvasRatio = width / (rect.width || 400);
+
+      const finalZoom = zoomLevel;
+      const finalPanX = panX * scaleCanvasRatio;
+      const finalPanY = panY * scaleCanvasRatio;
+
+      const scaledW = baseW * finalZoom;
+      const scaledH = baseH * finalZoom;
+
+      const finalDrawX = baseX + finalPanX - (scaledW - baseW) / 2;
+      const finalDrawY = baseY + finalPanY - (scaledH - baseH) / 2;
+
+      ctx.drawImage(capturedImageSource, finalDrawX, finalDrawY, scaledW, scaledH);
 
       // Carrega e desenha a moldura PNG sobre a foto
       const frameImg = new Image();
@@ -1076,7 +1383,6 @@
               showToast('Compartilhado com sucesso! 🌸');
               return;
             } catch (shareErr) {
-              // Se o usuário cancelar ou der fallback, faz o download automático
               console.log('Compartilhamento cancelado ou ignorado:', shareErr);
             }
           }
