@@ -377,45 +377,118 @@
     }
 
     /* MODAL DE CÂMERA (MOBILE-FIRST FULLSCREEN) */
+    /* MODAL DE CÂMERA FULLSCREEN TOTAL (MOBILE-FIRST) */
     .camera-modal {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #111116;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: #000000;
       z-index: 9999;
       display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
       overflow: hidden;
-      padding: env(safe-area-inset-top, 16px) 16px env(safe-area-inset-bottom, 20px);
     }
 
     .camera-modal.active {
-      display: flex;
+      display: block;
     }
 
-    /* Top Bar da Câmera */
-    .camera-top-bar {
+    /* Container e Viewport em Tela Total */
+    .camera-viewport-container {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      max-width: 480px;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      z-index: 1;
+    }
+
+    .camera-viewport-wrapper {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .camera-media-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+      cursor: grab;
+      z-index: 2;
+    }
+    .camera-media-layer:active {
+      cursor: grabbing;
+    }
+
+    video#camera-video, img#captured-photo-preview {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+
+    /* Espelhamento APENAS no vídeo da câmera frontal durante a visualização ao vivo */
+    video#camera-video.mirrored {
+      transform: scaleX(-1);
+    }
+
+    /* A foto capturada NÃO deve ser re-espelhada pois já foi congelada espelhada */
+    img#captured-photo-preview {
+      transform: none;
+    }
+
+    /* Moldura Sobreposta Responsiva - Tamanho Total da Tela */
+    img#frame-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Preenche 100% da tela do celular */
+      pointer-events: none;
+      z-index: 10;
+      transition: object-fit 0.25s ease;
+    }
+
+    /* Modo Opcional: Moldura Contida (para quem preferir ver as bordas 9:16 completas) */
+    .camera-viewport-wrapper.fit-contain-mode img#frame-overlay {
+      object-fit: contain;
+    }
+
+    /* Top Bar Flutuante */
+    .camera-top-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: env(safe-area-inset-top, 16px) 16px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 6px 4px;
-      z-index: 25;
-      gap: 8px;
+      z-index: 30;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+      pointer-events: auto;
     }
 
     .icon-btn {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.22);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(30, 20, 30, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       color: #ffffff;
       font-size: 1.25rem;
       display: flex;
@@ -424,25 +497,31 @@
       cursor: pointer;
       transition: all 0.2s ease;
       flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
     .icon-btn:active {
       transform: scale(0.92);
-      background: rgba(255, 255, 255, 0.35);
+      background: rgba(216, 27, 96, 0.8);
     }
 
     .camera-status-text {
       color: #fff;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 700;
       letter-spacing: 0.4px;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.7);
       display: flex;
       align-items: center;
       gap: 6px;
+      background: rgba(216, 27, 96, 0.3);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .btn-fit-mode {
-      background: rgba(255, 255, 255, 0.18);
+      background: rgba(30, 20, 30, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.35);
       color: #ffffff;
       font-size: 0.78rem;
@@ -450,136 +529,47 @@
       padding: 6px 12px;
       border-radius: var(--radius-full);
       cursor: pointer;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       gap: 5px;
       transition: all 0.2s;
       white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
     .btn-fit-mode:active {
       transform: scale(0.95);
       background: var(--primary);
     }
 
-    /* Container de Adaptação Dinâmica para Qualquer Tela */
-    .camera-viewport-container {
-      position: relative;
-      flex: 1;
-      width: 100%;
-      min-height: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      padding: 4px 0;
-    }
-
-    .camera-viewport-wrapper {
-      position: relative;
-      /* Adapta-se à proporção 9:16 máxima cabível na tela útil */
-      height: 100%;
-      max-height: calc(100vh - 185px);
-      max-height: calc(100dvh - 185px);
-      width: auto;
-      aspect-ratio: 9 / 16;
-      max-width: 100%;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      background: #000;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.75);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      touch-action: none;
-      user-select: none;
-      transition: width 0.3s ease, aspect-ratio 0.3s ease;
-    }
-
-    /* Modo Preencher Tela Cheia Opcional */
-    .camera-viewport-wrapper.fit-cover-mode {
-      width: 100%;
-      max-width: 480px;
-      aspect-ratio: auto;
-    }
-
-    .camera-media-layer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform-origin: center center;
-      cursor: grab;
-      z-index: 1;
-    }
-    .camera-media-layer:active {
-      cursor: grabbing;
-    }
-
-    video#camera-video, img#captured-photo-preview {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      pointer-events: none;
-    }
-
-    video#camera-video {
-      transform: scaleX(-1); /* Padrão selfie espelhado */
-    }
-
-    video#camera-video.unmirror {
-      transform: scaleX(1);
-    }
-
-    /* Moldura sobreposta no vídeo */
-    img#frame-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      pointer-events: none;
-      z-index: 5;
-      transition: object-fit 0.25s ease;
-    }
-
-    .camera-viewport-wrapper.fit-cover-mode img#frame-overlay {
-      object-fit: cover;
-    }
-
-    /* Painel de Ajustes de Zoom e Reset */
+    /* Painel Flutuante Lateral de Zoom e Reset */
     .floating-adjust-panel {
       position: absolute;
-      right: 10px;
-      top: 50%;
+      right: 14px;
+      top: 45%;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      z-index: 20;
+      z-index: 25;
+      pointer-events: auto;
     }
 
     .adjust-btn {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: rgba(20, 15, 25, 0.7);
-      backdrop-filter: blur(10px);
+      background: rgba(25, 15, 25, 0.7);
+      backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.35);
       color: #ffffff;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
       transition: all 0.2s ease;
     }
     .adjust-btn:active {
@@ -602,21 +592,21 @@
     /* Dica Flutuante de Arrastar/Ajustar */
     .drag-hint-badge {
       position: absolute;
-      bottom: 10px;
+      bottom: 175px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(25, 12, 22, 0.85);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       color: #fff;
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      padding: 6px 14px;
+      padding: 7px 16px;
       border-radius: var(--radius-full);
       white-space: nowrap;
       pointer-events: none;
-      z-index: 20;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      z-index: 25;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
       transition: opacity 0.4s ease;
     }
     .drag-hint-badge.fade-out {
@@ -626,30 +616,33 @@
     /* Efeito de Flash na captura */
     .flash-overlay {
       position: absolute;
-      top: 0;
-      left: 0;
+      inset: 0;
       width: 100%;
       height: 100%;
       background: #ffffff;
       opacity: 0;
       pointer-events: none;
-      z-index: 15;
+      z-index: 40;
       transition: opacity 0.1s ease-out;
     }
     .flash-overlay.trigger {
       opacity: 1;
     }
 
-    /* Controles Inferiores da Câmera */
+    /* Controles Inferiores Flutuantes da Câmera */
     .camera-bottom-bar {
-      width: 100%;
-      max-width: 480px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 16px env(safe-area-inset-bottom, 24px);
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 14px;
-      z-index: 10;
-      padding-top: 10px;
+      z-index: 30;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.45) 70%, transparent 100%);
+      pointer-events: auto;
     }
 
     /* Seletor de Molduras */
@@ -764,10 +757,19 @@
       border: 1px solid rgba(255, 255, 255, 0.4);
     }
 
+    .btn-flip {
+      background: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      flex: 0.9;
+    }
+
     .btn-save {
       background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
       color: #ffffff;
       box-shadow: 0 6px 18px rgba(216, 27, 96, 0.6);
+      flex: 1.2;
     }
 
     .btn-review:active {
@@ -903,8 +905,8 @@
     <div class="camera-top-bar">
       <button class="icon-btn" id="btn-close-camera" title="Fechar">✕</button>
       <button class="btn-fit-mode" id="btn-toggle-fit" title="Alternar Enquadramento da Moldura">
-        <span id="fit-mode-icon">📐</span>
-        <span id="fit-mode-text">Moldura 9:16</span>
+        <span id="fit-mode-icon">📱</span>
+        <span id="fit-mode-text">Tela Total</span>
       </button>
       <button class="icon-btn" id="btn-switch-camera" title="Inverter Câmera">🔄</button>
     </div>
@@ -919,7 +921,7 @@
           <img id="captured-photo-preview" alt="Foto capturada">
         </div>
 
-        <!-- Moldura Sobreposta -->
+        <!-- Moldura Sobreposta Responsiva -->
         <img id="frame-overlay" src="moldura1.png" alt="Moldura">
         
         <!-- Painel Flutuante de Ajustes (Zoom & Reset) -->
@@ -959,10 +961,13 @@
 
       <!-- Ações de Revisão pós-foto (Visível após captura) -->
       <div class="review-actions" id="review-actions">
-        <button class="btn-review btn-retake" id="btn-retake">
+        <button class="btn-review btn-retake" id="btn-retake" title="Descartar e tirar outra">
           <span>Tirar Outra</span>
         </button>
-        <button class="btn-review btn-save" id="btn-save">
+        <button class="btn-review btn-flip" id="btn-flip-photo" title="Espelhar ou desespelhar foto">
+          <span>↔️ Espelhar</span>
+        </button>
+        <button class="btn-review btn-save" id="btn-save" title="Salvar e baixar foto">
           <span>Salvar Foto 💾</span>
         </button>
       </div>
@@ -984,7 +989,7 @@
     let currentFacingMode = 'user'; // 'user' (selfie) ou 'environment' (traseira)
     let capturedImageSource = null; // elemento Image ou Video para o Canvas
     let isCaptured = false;
-    let isFitCoverMode = false; // true = expandir para preencher tela
+    let isFitContainMode = false; // false = TAMANHO TOTAL DA TELA DO CELULAR (cover)
 
     // Estados de Ajuste Interativo (Pan & Zoom)
     let zoomLevel = 1.0;
@@ -1017,6 +1022,7 @@
     const dragHintBadge = document.getElementById('drag-hint-badge');
     const btnShutter = document.getElementById('btn-shutter');
     const btnRetake = document.getElementById('btn-retake');
+    const btnFlipPhoto = document.getElementById('btn-flip-photo');
     const btnSave = document.getElementById('btn-save');
     const captureActions = document.getElementById('capture-actions');
     const reviewActions = document.getElementById('review-actions');
@@ -1048,16 +1054,15 @@
       }, duration);
     }
 
-    // Atualiza Transformação Visual (Pan & Zoom)
+    // Atualiza Transformação Visual (Pan & Zoom) - SEM inversão no pai para evitar saltos
     function updateMediaTransform() {
-      // Limita o deslocamento para não sair da tela
-      const maxPanX = (zoomLevel - 1) * 200 + 150;
-      const maxPanY = (zoomLevel - 1) * 350 + 250;
+      const maxPanX = (zoomLevel - 1) * 260 + 180;
+      const maxPanY = (zoomLevel - 1) * 420 + 280;
       panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
       panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
 
-      const mirror = (currentFacingMode === 'user' && !isCaptured) ? -1 : 1;
-      cameraMediaLayer.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomLevel * mirror}, ${zoomLevel})`;
+      // Aplica zoom e pan direto de forma estável
+      cameraMediaLayer.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomLevel}, ${zoomLevel})`;
       zoomBadge.textContent = `${zoomLevel.toFixed(1)}x`;
     }
 
@@ -1091,9 +1096,7 @@
       const dx = clientX - startX;
       const dy = clientY - startY;
 
-      // Inverte horizontalmente em modo selfie ao vivo para o toque acompanhar o movimento natural
-      const dirX = (currentFacingMode === 'user' && !isCaptured) ? -1 : 1;
-      panX = initialPanX + (dx * dirX);
+      panX = initialPanX + dx;
       panY = initialPanY + dy;
       updateMediaTransform();
     }
@@ -1133,18 +1136,18 @@
       showToast('Enquadramento recentralizado ↺');
     });
 
-    // Alternar Modo de Ajuste da Moldura (9:16 vs Preencher Tela)
+    // Alternar Modo de Ajuste da Moldura (Tela Total vs 9:16)
     btnToggleFit.addEventListener('click', () => {
-      isFitCoverMode = !isFitCoverMode;
-      cameraViewportWrapper.classList.toggle('fit-cover-mode', isFitCoverMode);
-      if (isFitCoverMode) {
-        fitModeIcon.textContent = '📱';
-        fitModeText.textContent = 'Tela Cheia';
-        showToast('Moldura expandida para cobrir toda a tela do celular 📱');
-      } else {
+      isFitContainMode = !isFitContainMode;
+      cameraViewportWrapper.classList.toggle('fit-contain-mode', isFitContainMode);
+      if (isFitContainMode) {
         fitModeIcon.textContent = '📐';
-        fitModeText.textContent = 'Moldura 9:16';
-        showToast('Moldura ajustada na proporção 9:16 integral 📐');
+        fitModeText.textContent = 'Proporção 9:16';
+        showToast('Moldura contida na proporção 9:16 📐');
+      } else {
+        fitModeIcon.textContent = '📱';
+        fitModeText.textContent = 'Tela Total';
+        showToast('Moldura preenchendo a tela total do celular 📱');
       }
     });
 
@@ -1166,11 +1169,11 @@
         cameraVideo.srcObject = cameraStream;
         await cameraVideo.play();
 
-        // Controla espelhamento da câmera
+        // Controla espelhamento da câmera frontal no visor ao vivo
         if (currentFacingMode === 'user') {
-          cameraVideo.classList.remove('unmirror');
+          cameraVideo.classList.add('mirrored');
         } else {
-          cameraVideo.classList.add('unmirror');
+          cameraVideo.classList.remove('mirrored');
         }
 
         cameraVideo.style.display = 'block';
@@ -1181,7 +1184,6 @@
         capturedImageSource = null;
         resetAdjustments();
 
-        // Reexibe dica por alguns segundos
         if (dragHintBadge) {
           dragHintBadge.classList.remove('fade-out');
           setTimeout(() => {
@@ -1223,24 +1225,27 @@
       startCamera();
     });
 
-    // Capturar Foto
+    // Capturar Foto - Congela a orientação EXATA que o usuário estava vendo
     btnShutter.addEventListener('click', () => {
       if (!cameraStream) return;
 
-      // Efeito de Flash
       flashOverlay.classList.add('trigger');
       setTimeout(() => flashOverlay.classList.remove('trigger'), 200);
 
       const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = cameraVideo.videoWidth || 1080;
-      tempCanvas.height = cameraVideo.videoHeight || 1920;
+      const vw = cameraVideo.videoWidth || 1080;
+      const vh = cameraVideo.videoHeight || 1920;
+      tempCanvas.width = vw;
+      tempCanvas.height = vh;
       const tCtx = tempCanvas.getContext('2d');
 
+      // Se for selfie ao vivo, a pessoa estava vendo o vídeo espelhado (.mirrored).
+      // Desenhamos espelhado uma única vez no canvas para a foto congelada ficar IDÊNTICA ao visor!
       if (currentFacingMode === 'user') {
-        tCtx.translate(tempCanvas.width, 0);
+        tCtx.translate(vw, 0);
         tCtx.scale(-1, 1);
       }
-      tCtx.drawImage(cameraVideo, 0, 0, tempCanvas.width, tempCanvas.height);
+      tCtx.drawImage(cameraVideo, 0, 0, vw, vh);
 
       const capturedDataUrl = tempCanvas.toDataURL('image/jpeg', 0.95);
       
@@ -1257,6 +1262,30 @@
         updateMediaTransform();
       };
       img.src = capturedDataUrl;
+    });
+
+    // Botão de Espelhar Foto Pós-Captura (Inverte horizontalmente caso o usuário queira)
+    btnFlipPhoto.addEventListener('click', () => {
+      if (!capturedImageSource) return;
+
+      const flipCanvas = document.createElement('canvas');
+      const w = capturedImageSource.naturalWidth || capturedImageSource.width;
+      const h = capturedImageSource.naturalHeight || capturedImageSource.height;
+      flipCanvas.width = w;
+      flipCanvas.height = h;
+      const fCtx = flipCanvas.getContext('2d');
+      fCtx.translate(w, 0);
+      fCtx.scale(-1, 1);
+      fCtx.drawImage(capturedImageSource, 0, 0, w, h);
+
+      const flippedUrl = flipCanvas.toDataURL('image/jpeg', 0.95);
+      const newImg = new Image();
+      newImg.onload = () => {
+        capturedImageSource = newImg;
+        capturedPhotoPreview.src = flippedUrl;
+        showToast('Orientação invertida ↔️');
+      };
+      newImg.src = flippedUrl;
     });
 
     // Tirar Outra Foto
@@ -1319,7 +1348,6 @@
 
       ctx.clearRect(0, 0, width, height);
 
-      // Dimensões nativas da foto do usuário
       const imgW = capturedImageSource.naturalWidth || capturedImageSource.width;
       const imgH = capturedImageSource.naturalHeight || capturedImageSource.height;
 
@@ -1356,7 +1384,7 @@
 
       ctx.drawImage(capturedImageSource, finalDrawX, finalDrawY, scaledW, scaledH);
 
-      // Carrega e desenha a moldura PNG sobre a foto
+      // Carrega e desenha a moldura PNG sobre a foto em alta resolução
       const frameImg = new Image();
       frameImg.crossOrigin = 'anonymous';
       frameImg.onload = async () => {
