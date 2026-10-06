@@ -11,9 +11,12 @@ Web App Mobile-First desenvolvida para a campanha do **Outubro Rosa - Mulheres e
 - 📐 **Moldura Adaptável e Ajustável:** O visor se adapta dinamicamente a qualquer modelo e proporção de tela de smartphone (iPhones, telas compridas 20:9, etc.), com botão de alternância entre "Moldura 9:16" e "Tela Cheia".
 - 🔍 **Controle Interativo de Zoom & Reposicionamento:** Permite dar zoom na foto e arrastar com o dedo na tela para encaixar o rosto com perfeição dentro do espaço vazado da moldura.
 - 📸 **Câmera Integrada ao Vivo:** Permite captura instantânea com alternância entre câmera frontal (selfie) e câmera traseira.
-- 🖼️ **3 Molduras Exclusivas (1080x1920):** Troca dinâmica e em tempo real sobre o visor da câmera.
-- 📁 **Suporte a Galeria:** Opção de selecionar foto da galeria do aparelho caso prefira ou caso a câmera esteja indisponível.
-- 🎨 **Processamento em Alta Resolução:** Canvas 1080x1920 que une a foto e a moldura respeitando os ajustes de zoom e deslocamento aplicados pelo usuário.
+- 🖼️ **5 Molduras Exclusivas (Verticais & Horizontais):**
+  - **Molduras 1, 2 e 3:** Formato Retrato / Stories (1080×1920 - 9:16).
+  - **Molduras 4 e 5:** Formato Paisagem / Fotos em Grupo (1920×1080 - 16:9).
+- 🔄 **Modo Paisagem Inteligente:** O visor da câmera detecta molduras horizontais e adapta o viewport (16:9), exibindo guia de orientação e preenchendo a tela ao virar o smartphone de lado.
+- 📁 **Suporte Inteligente à Galeria:** Identifica automaticamente se a foto enviada é horizontal ou vertical e seleciona a melhor moldura.
+- 🎨 **Processamento em Alta Resolução:** Canvas dinâmico (1080×1920 para vertical ou 1920×1080 para horizontal) que une a foto e a moldura preservando os ajustes de zoom e enquadramento.
 - 🎀 **Identidade Visual Oficial Outubro Rosa:** Logo comemorativa com o laço rosa sobreposto e favicons para navegador e tela de início.
 - 📲 **Compartilhamento Nativo & Download:** Integração com o menu de compartilhamento do smartphone (`Web Share API`) e download direto em PNG.
 
@@ -30,9 +33,11 @@ camera-outubro-rosa/
 ├── favicon.ico           # Favicon do site em múltiplos tamanhos
 ├── favicon-32x32.png     # Ícone para navegadores
 ├── apple-touch-icon.png  # Ícone para atalho no celular
-├── moldura1.png          # Moldura 1 (1080x1920 PNG transparente)
-├── moldura2.png          # Moldura 2 (1080x1920 PNG transparente)
-├── moldura3.png          # Moldura 3 (1080x1920 PNG transparente)
+├── moldura1.png          # Moldura 1 (1080x1920 PNG transparente - Vertical)
+├── moldura2.png          # Moldura 2 (1080x1920 PNG transparente - Vertical)
+├── moldura3.png          # Moldura 3 (1080x1920 PNG transparente - Vertical)
+├── moldura4.png          # Moldura 4 (1920x1080 PNG transparente - Horizontal)
+├── moldura5.png          # Moldura 5 (1920x1080 PNG transparente - Horizontal)
 └── README.md             # Documentação e instruções de deploy
 ```
 
