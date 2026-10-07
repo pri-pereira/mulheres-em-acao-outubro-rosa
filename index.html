@@ -287,14 +287,6 @@
       width: 100%;
     }
 
-    .frame-thumb-card.is-landscape {
-      aspect-ratio: 16/9;
-    }
-
-    .frame-thumb-card.is-landscape img {
-      object-fit: cover;
-    }
-
     .frame-thumb-card {
       background: var(--white);
       border-radius: var(--radius-sm);
@@ -314,6 +306,10 @@
       border-color: var(--primary);
       transform: translateY(-3px);
       box-shadow: var(--shadow-md);
+    }
+
+    .frame-thumb-card.is-landscape {
+      aspect-ratio: 16/9;
     }
 
     .frame-thumb-card img {
@@ -336,6 +332,67 @@
       text-align: center;
       padding: 4px 2px;
       backdrop-filter: blur(4px);
+    }
+
+    /* Card de Dicas de Uso na Página Inicial */
+    .tips-card {
+      width: 100%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      animation: fadeInUp 0.8s ease-out 0.35s both;
+    }
+
+    .tips-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .tips-icon {
+      font-size: 1.25rem;
+    }
+
+    .tips-header h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    .tips-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tip-item {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      border: 1px solid rgba(216, 27, 96, 0.12);
+    }
+
+    .tip-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tip-item p {
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: var(--text-main);
     }
 
     /* Botão Principal */
@@ -503,11 +560,6 @@
       transition: object-fit 0.25s ease;
     }
 
-    /* Modo Opcional: Moldura Contida */
-    .camera-viewport-wrapper.fit-contain-mode img#frame-overlay {
-      object-fit: contain;
-    }
-
     /* Adaptação de Viewport para Molduras Horizontais 16:9 */
     .camera-viewport-wrapper.is-landscape-frame {
       position: absolute;
@@ -520,8 +572,8 @@
       height: 56.25vw; /* Proporção 16:9 exata (9/16 = 56.25%) */
       max-height: 100vh;
       border-radius: var(--radius-md);
-      box-shadow: 0 0 45px rgba(216, 27, 96, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 0 35px rgba(216, 27, 96, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
@@ -538,59 +590,30 @@
       }
     }
 
-    /* Aviso Flutuante de Modo Horizontal */
-    .landscape-hint-badge {
-      position: absolute;
-      top: 76px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(216, 27, 96, 0.88);
-      backdrop-filter: blur(12px);
-      color: #fff;
-      font-size: 0.76rem;
-      font-weight: 700;
-      padding: 7px 18px;
-      border-radius: var(--radius-full);
-      white-space: nowrap;
-      z-index: 35;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
-      display: none;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      pointer-events: none;
-      animation: pulseBadge 2.5s infinite ease-in-out;
-    }
-
-    @keyframes pulseBadge {
-      0%, 100% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.03); }
-    }
-
-    /* Top Bar Flutuante */
+    /* Top Bar Flutuante Minimalista */
     .camera-top-bar {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      padding: env(safe-area-inset-top, 16px) 16px 12px;
+      padding: env(safe-area-inset-top, 14px) 16px 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 30;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
       pointer-events: auto;
     }
 
     .icon-btn {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      background: rgba(30, 20, 30, 0.6);
+      background: rgba(30, 20, 30, 0.55);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(255, 255, 255, 0.35);
       color: #ffffff;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -601,75 +624,40 @@
     }
     .icon-btn:active {
       transform: scale(0.92);
-      background: rgba(216, 27, 96, 0.8);
+      background: rgba(216, 27, 96, 0.85);
     }
 
-    .camera-status-text {
-      color: #fff;
-      font-size: 0.92rem;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.7);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(216, 27, 96, 0.3);
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-fit-mode {
-      background: rgba(30, 20, 30, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      color: #ffffff;
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: var(--radius-full);
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      transition: all 0.2s;
-      white-space: nowrap;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-    }
-    .btn-fit-mode:active {
-      transform: scale(0.95);
-      background: var(--primary);
-    }
-
-    /* Painel Flutuante Lateral de Zoom e Reset */
+    /* Painel Flutuante Lateral de Zoom Compacto e Discreto */
     .floating-adjust-panel {
       position: absolute;
-      right: 14px;
-      top: 45%;
+      right: 12px;
+      top: 50%;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       z-index: 25;
       pointer-events: auto;
+      background: rgba(15, 10, 15, 0.45);
+      backdrop-filter: blur(10px);
+      padding: 6px 4px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .adjust-btn {
-      width: 40px;
-      height: 40px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      background: rgba(25, 15, 25, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       color: #ffffff;
-      font-size: 1.2rem;
+      font-size: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
       transition: all 0.2s ease;
     }
     .adjust-btn:active {
@@ -678,39 +666,11 @@
     }
 
     .zoom-badge {
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(6px);
       color: #fff;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      padding: 2px 6px;
-      border-radius: var(--radius-full);
+      padding: 1px 4px;
       text-align: center;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-    }
-
-    /* Dica Flutuante de Arrastar/Ajustar */
-    .drag-hint-badge {
-      position: absolute;
-      bottom: 175px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(25, 12, 22, 0.85);
-      backdrop-filter: blur(10px);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 7px 16px;
-      border-radius: var(--radius-full);
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 25;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-      transition: opacity 0.4s ease;
-    }
-    .drag-hint-badge.fade-out {
-      opacity: 0;
     }
 
     /* Efeito de Flash na captura */
@@ -722,38 +682,39 @@
       background: #ffffff;
       opacity: 0;
       pointer-events: none;
-      z-index: 40;
+      z-index: 50;
       transition: opacity 0.1s ease-out;
     }
     .flash-overlay.trigger {
       opacity: 1;
     }
 
-    /* Controles Inferiores Flutuantes da Câmera */
+    /* Controles Inferiores Flutuantes da Câmera (Modo Retrato) */
     .camera-bottom-bar {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 16px 16px env(safe-area-inset-bottom, 24px);
+      padding: 10px 16px env(safe-area-inset-bottom, 20px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
       z-index: 30;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.45) 70%, transparent 100%);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.15) 60%, transparent 100%);
       pointer-events: auto;
     }
 
-    /* Seletor de Molduras */
+    /* Seletor de Molduras Compacto */
     .frames-selector {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 8px;
-      width: 100%;
+      width: auto;
+      max-width: 100%;
       overflow-x: auto;
-      padding: 6px 4px;
+      padding: 4px 6px;
       scrollbar-width: none;
       -webkit-overflow-scrolling: touch;
     }
@@ -762,15 +723,18 @@
     }
 
     .frame-btn {
-      background: rgba(255, 255, 255, 0.18);
-      border: 2px solid rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.22);
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
       color: #ffffff;
-      padding: 6px 12px;
-      border-radius: var(--radius-full);
-      font-size: 0.78rem;
-      font-weight: 600;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 0.82rem;
+      font-weight: 700;
       cursor: pointer;
-      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.2s ease;
       backdrop-filter: blur(8px);
       flex-shrink: 0;
@@ -779,33 +743,32 @@
     .frame-btn.selected {
       background: var(--primary);
       border-color: #ffffff;
-      box-shadow: 0 0 14px rgba(216, 27, 96, 0.8);
-      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(216, 27, 96, 0.85);
+      transform: scale(1.12);
     }
 
     .frame-btn.btn-landscape {
-      border-color: rgba(255, 182, 193, 0.6);
-    }
-    .frame-btn.btn-landscape.selected {
-      background: linear-gradient(135deg, #d81b60 0%, #ad1457 100%);
-      box-shadow: 0 0 16px rgba(255, 64, 129, 0.85);
+      width: auto;
+      padding: 0 10px;
+      border-radius: var(--radius-full);
+      gap: 3px;
+      font-size: 0.78rem;
     }
 
-    /* Botões de Ação na Câmera */
+    /* Botão Disparador */
     .capture-actions {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 24px;
       width: 100%;
     }
 
     .shutter-btn {
-      width: 74px;
-      height: 74px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       background: transparent;
-      border: 4px solid #ffffff;
+      border: 3.5px solid #ffffff;
       padding: 4px;
       cursor: pointer;
       outline: none;
@@ -813,6 +776,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     }
 
     .shutter-btn:active {
@@ -884,6 +848,130 @@
 
     .btn-review:active {
       transform: scale(0.96);
+    }
+
+    /* ADAPTAÇÃO PARA ORIENTAÇÃO HORIZONTAL (LANDSCAPE) */
+    @media (orientation: landscape) {
+      .camera-bottom-bar {
+        background: none;
+        pointer-events: none;
+        padding: 0;
+      }
+
+      /* Barra superior sem fundo com botão de inverter na lateral */
+      .camera-top-bar {
+        background: none;
+        padding: env(safe-area-inset-top, 14px) env(safe-area-inset-right, 18px) 0 env(safe-area-inset-left, 18px);
+      }
+
+      /* Inverter Câmera alinhado ergonomicamente na lateral direita acima do disparador */
+      .camera-top-bar #btn-switch-camera {
+        position: fixed;
+        right: env(safe-area-inset-right, 24px);
+        top: calc(50% - 64px);
+        transform: translateY(-50%);
+        z-index: 40;
+        width: 44px;
+        height: 44px;
+      }
+
+      /* Disparador posicionado na lateral direita para toque ergonômico do polegar */
+      .capture-actions {
+        position: fixed;
+        right: env(safe-area-inset-right, 20px);
+        top: 50%;
+        transform: translateY(-50%);
+        width: auto;
+        z-index: 40;
+        pointer-events: auto;
+      }
+
+      .shutter-btn {
+        width: 68px;
+        height: 68px;
+      }
+
+      /* Seletor de molduras compacto no canto inferior esquerdo (deixa centro e textos 100% livres) */
+      .frames-selector {
+        position: fixed;
+        bottom: env(safe-area-inset-bottom, 14px);
+        left: env(safe-area-inset-left, 16px);
+        transform: none;
+        width: auto;
+        z-index: 40;
+        background: rgba(15, 10, 15, 0.6);
+        backdrop-filter: blur(12px);
+        padding: 4px 10px;
+        border-radius: var(--radius-full);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        pointer-events: auto;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      }
+
+      .frame-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+      }
+
+      .frame-btn.btn-landscape {
+        padding: 0 8px;
+        height: 32px;
+        font-size: 0.75rem;
+      }
+
+      /* Painel de zoom discreto na lateral esquerda */
+      .floating-adjust-panel {
+        right: auto;
+        left: env(safe-area-inset-left, 16px);
+        top: 50%;
+        transform: translateY(-50%);
+        gap: 5px;
+        padding: 5px 3px;
+        z-index: 35;
+      }
+
+      .adjust-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 0.88rem;
+      }
+
+      /* Preserva molduras verticais centralizadas se o celular estiver em landscape */
+      .camera-viewport-wrapper:not(.is-landscape-frame) {
+        width: auto;
+        height: 100vh;
+        aspect-ratio: 9/16;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /* Ações de revisão na horizontal agrupadas na lateral direita */
+      .review-actions {
+        position: fixed;
+        right: env(safe-area-inset-right, 18px);
+        top: 50%;
+        transform: translateY(-50%);
+        width: auto;
+        max-width: 200px;
+        flex-direction: column;
+        gap: 8px;
+        background: rgba(15, 10, 15, 0.7);
+        backdrop-filter: blur(14px);
+        padding: 12px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 6px 22px rgba(0, 0, 0, 0.55);
+        z-index: 45;
+        pointer-events: auto;
+      }
+
+      .review-actions .btn-review {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 0.88rem;
+        white-space: nowrap;
+      }
     }
 
     /* Alerta ou Mensagem de Toast */
@@ -1008,6 +1096,28 @@
       </div>
     </section>
 
+    <!-- Card de Dicas e Instruções -->
+    <section class="tips-card">
+      <div class="tips-header">
+        <span class="tips-icon">💡</span>
+        <h4>Dicas para sua foto perfeita</h4>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-item">
+          <div class="tip-title">📱 Fotos Verticais (Individual / Stories)</div>
+          <p>Escolha as <strong>Molduras 1, 2 ou 3</strong> para fotos e selfies com o celular em pé.</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-title">🔄 Fotos Horizontais (Em Grupo / Paisagem)</div>
+          <p>Escolha as <strong>Molduras 4 ou 5</strong> e <strong>vire o celular na horizontal</strong> para enquadrar todo mundo!</p>
+        </div>
+        <div class="tip-item">
+          <div class="tip-title">👆 Enquadramento com o Dedo</div>
+          <p>Você pode <strong>arrastar</strong> ou <strong>dar zoom</strong> na foto para posicionar o rosto perfeitamente no espaço da moldura.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Botão de Ação Principal -->
     <div class="cta-container">
       <button class="btn-primary" id="btn-open-camera">
@@ -1036,10 +1146,6 @@
     <!-- Top Bar -->
     <div class="camera-top-bar">
       <button class="icon-btn" id="btn-close-camera" title="Fechar">✕</button>
-      <button class="btn-fit-mode" id="btn-toggle-fit" title="Alternar Enquadramento da Moldura">
-        <span id="fit-mode-icon">📱</span>
-        <span id="fit-mode-text">Tela Total</span>
-      </button>
       <button class="icon-btn" id="btn-switch-camera" title="Inverter Câmera">🔄</button>
     </div>
 
@@ -1056,22 +1162,12 @@
         <!-- Moldura Sobreposta Responsiva -->
         <img id="frame-overlay" src="moldura1.png" alt="Moldura">
         
-        <!-- Painel Flutuante de Ajustes (Zoom & Reset) -->
+        <!-- Painel Flutuante Lateral de Zoom Compacto -->
         <div class="floating-adjust-panel">
           <button class="adjust-btn" id="btn-zoom-in" title="Aumentar Zoom">＋</button>
           <span class="zoom-badge" id="zoom-badge">1.0x</span>
           <button class="adjust-btn" id="btn-zoom-out" title="Diminuir Zoom">－</button>
           <button class="adjust-btn" id="btn-reset-adjust" title="Recentralizar Foto">↺</button>
-        </div>
-
-        <!-- Dica de Interatividade -->
-        <div class="drag-hint-badge" id="drag-hint-badge">
-          👆 Arraste ou use o zoom para enquadrar na moldura
-        </div>
-
-        <!-- Aviso Flutuante de Orientação Horizontal -->
-        <div class="landscape-hint-badge" id="landscape-hint-badge">
-          🔄 Foto Horizontal (16:9) • Dica: Vire o celular de lado para tela cheia
         </div>
 
         <!-- Efeito de Flash -->
@@ -1084,11 +1180,11 @@
       
       <!-- Seletor de Molduras no Rodapé da Câmera -->
       <div class="frames-selector">
-        <button class="frame-btn selected" onclick="selectFrameIndex(1)" id="btn-frame-1">Moldura 1 📱</button>
-        <button class="frame-btn" onclick="selectFrameIndex(2)" id="btn-frame-2">Moldura 2 📱</button>
-        <button class="frame-btn" onclick="selectFrameIndex(3)" id="btn-frame-3">Moldura 3 📱</button>
-        <button class="frame-btn btn-landscape" onclick="selectFrameIndex(4)" id="btn-frame-4">Moldura 4 🔄 (Horizontal)</button>
-        <button class="frame-btn btn-landscape" onclick="selectFrameIndex(5)" id="btn-frame-5">Moldura 5 🔄 (Horizontal)</button>
+        <button class="frame-btn selected" onclick="selectFrameIndex(1)" id="btn-frame-1" title="Moldura 1 (Vertical)">1</button>
+        <button class="frame-btn" onclick="selectFrameIndex(2)" id="btn-frame-2" title="Moldura 2 (Vertical)">2</button>
+        <button class="frame-btn" onclick="selectFrameIndex(3)" id="btn-frame-3" title="Moldura 3 (Vertical)">3</button>
+        <button class="frame-btn btn-landscape" onclick="selectFrameIndex(4)" id="btn-frame-4" title="Moldura 4 (Horizontal 16:9)">4 🔄</button>
+        <button class="frame-btn btn-landscape" onclick="selectFrameIndex(5)" id="btn-frame-5" title="Moldura 5 (Horizontal 16:9)">5 🔄</button>
       </div>
 
       <!-- Botão Disparador (Visível no modo Câmera) -->
@@ -1128,7 +1224,6 @@
     let currentFacingMode = 'user'; // 'user' (selfie) ou 'environment' (traseira)
     let capturedImageSource = null; // elemento Image ou Video para o Canvas
     let isCaptured = false;
-    let isFitContainMode = false; // false = TAMANHO TOTAL DA TELA DO CELULAR (cover)
 
     // Estados de Ajuste Interativo (Pan & Zoom)
     let zoomLevel = 1.0;
@@ -1151,14 +1246,10 @@
     const btnOpenCamera = document.getElementById('btn-open-camera');
     const btnCloseCamera = document.getElementById('btn-close-camera');
     const btnSwitchCamera = document.getElementById('btn-switch-camera');
-    const btnToggleFit = document.getElementById('btn-toggle-fit');
-    const fitModeIcon = document.getElementById('fit-mode-icon');
-    const fitModeText = document.getElementById('fit-mode-text');
     const btnZoomIn = document.getElementById('btn-zoom-in');
     const btnZoomOut = document.getElementById('btn-zoom-out');
     const btnResetAdjust = document.getElementById('btn-reset-adjust');
     const zoomBadge = document.getElementById('zoom-badge');
-    const dragHintBadge = document.getElementById('drag-hint-badge');
     const btnShutter = document.getElementById('btn-shutter');
     const btnRetake = document.getElementById('btn-retake');
     const btnFlipPhoto = document.getElementById('btn-flip-photo');
@@ -1178,19 +1269,6 @@
       const isLandscape = (index === 4 || index === 5);
       cameraViewportWrapper.classList.toggle('is-landscape-frame', isLandscape);
       cameraModal.classList.toggle('is-landscape-mode', isLandscape);
-
-      const landscapeHint = document.getElementById('landscape-hint-badge');
-      if (landscapeHint) {
-        landscapeHint.style.display = isLandscape ? 'flex' : 'none';
-      }
-
-      if (isLandscape) {
-        fitModeIcon.textContent = '🔄';
-        fitModeText.textContent = '16:9 Horizontal';
-      } else {
-        fitModeIcon.textContent = isFitContainMode ? '📐' : '📱';
-        fitModeText.textContent = isFitContainMode ? 'Proporção 9:16' : 'Tela Total';
-      }
 
       // Atualiza botões no modal
       for (let i = 1; i <= 5; i++) {
@@ -1241,10 +1319,6 @@
       startY = clientY;
       initialPanX = panX;
       initialPanY = panY;
-
-      if (dragHintBadge) {
-        dragHintBadge.classList.add('fade-out');
-      }
     }
 
     function onPointerMove(e) {
@@ -1294,34 +1368,6 @@
       showToast('Enquadramento recentralizado ↺');
     });
 
-    // Alternar Modo de Ajuste da Moldura (Tela Total vs Contido)
-    btnToggleFit.addEventListener('click', () => {
-      const isLandscape = (currentFrameIndex === 4 || currentFrameIndex === 5);
-      isFitContainMode = !isFitContainMode;
-      cameraViewportWrapper.classList.toggle('fit-contain-mode', isFitContainMode);
-      if (isLandscape) {
-        if (isFitContainMode) {
-          fitModeIcon.textContent = '📐';
-          fitModeText.textContent = '16:9 Contido';
-          showToast('Moldura horizontal contida na proporção 16:9 📐');
-        } else {
-          fitModeIcon.textContent = '🔄';
-          fitModeText.textContent = 'Horizontal Total';
-          showToast('Moldura preenchendo o enquadramento horizontal 🔄');
-        }
-      } else {
-        if (isFitContainMode) {
-          fitModeIcon.textContent = '📐';
-          fitModeText.textContent = 'Proporção 9:16';
-          showToast('Moldura contida na proporção vertical 9:16 📐');
-        } else {
-          fitModeIcon.textContent = '📱';
-          fitModeText.textContent = 'Tela Total';
-          showToast('Moldura preenchendo a tela total do celular 📱');
-        }
-      }
-    });
-
     // Inicialização da Câmera
     async function startCamera() {
       stopCamera();
@@ -1354,14 +1400,6 @@
         isCaptured = false;
         capturedImageSource = null;
         resetAdjustments();
-
-        if (dragHintBadge) {
-          dragHintBadge.classList.remove('fade-out');
-          setTimeout(() => {
-            dragHintBadge.classList.add('fade-out');
-          }, 4500);
-        }
-
       } catch (err) {
         console.error('Erro ao acessar câmera:', err);
         showToast('⚠️ Permissão de câmera necessária ou não suportada.');
@@ -1497,11 +1535,6 @@
               showToast('Foto horizontal detectada! Selecionamos a Moldura 4 (16:9) 🔄');
             } else {
               resetAdjustments();
-            }
-
-            if (dragHintBadge) {
-              dragHintBadge.classList.remove('fade-out');
-              setTimeout(() => dragHintBadge.classList.add('fade-out'), 4500);
             }
           };
           img.src = event.target.result;
