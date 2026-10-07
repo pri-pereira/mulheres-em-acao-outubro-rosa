@@ -229,6 +229,265 @@
       color: var(--text-muted);
     }
 
+    /* Card Informativo Volkswagen - Exames sem Coparticipação */
+    .company-campaign-card {
+      width: 100%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 22px 18px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 26px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out 0.25s both;
+    }
+
+    .company-campaign-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #001e50 0%, var(--primary) 60%, var(--accent) 100%);
+    }
+
+    .company-header-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .company-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: #001e50;
+      background: rgba(0, 30, 80, 0.07);
+      padding: 5px 11px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(0, 30, 80, 0.14);
+    }
+
+    .company-vw-icon {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .coparticipation-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #00796b;
+      background: #e0f2f1;
+      border: 1px solid #80cbc4;
+      padding: 5px 11px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 2px 6px rgba(0, 121, 107, 0.1);
+    }
+
+    .company-slogan-wrap {
+      margin-bottom: 12px;
+    }
+
+    .company-submotto {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #001e50;
+      opacity: 0.85;
+      margin-bottom: 4px;
+    }
+
+    .company-motto {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.3;
+    }
+
+    .company-intro-text {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .company-intro-text strong {
+      color: var(--text-main);
+    }
+
+    .company-dates-pill {
+      background: linear-gradient(135deg, #fce4ec 0%, #ffffff 100%);
+      border: 1px solid rgba(216, 27, 96, 0.22);
+      border-radius: var(--radius-md);
+      padding: 11px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dates-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .dates-text strong {
+      color: var(--primary-dark);
+      display: block;
+      font-size: 0.88rem;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .dates-text span {
+      font-size: 0.82rem;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .company-initiative-goal {
+      font-size: 0.84rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .exams-section-heading {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .exams-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 16px;
+    }
+
+    .exam-card-item {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(216, 27, 96, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 11px 13px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(216, 27, 96, 0.04);
+    }
+
+    .exam-card-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(216, 27, 96, 0.1);
+      border-color: var(--primary-light);
+    }
+
+    .exam-icon-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-subtle);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+      box-shadow: 0 2px 5px rgba(216, 27, 96, 0.1);
+    }
+
+    .exam-details {
+      flex: 1;
+    }
+
+    .exam-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      line-height: 1.35;
+    }
+
+    .exam-eligibility {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .eligibility-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: #fce4ec;
+      color: var(--primary-dark);
+      border: 1px solid #f8bbd0;
+      white-space: nowrap;
+    }
+
+    .eligibility-badge.badge-all {
+      background: #e1f5fe;
+      color: #0277bd;
+      border-color: #b3e5fc;
+    }
+
+    .notice-box {
+      background: #fff9e6;
+      border: 1px solid #ffe082;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      box-shadow: 0 2px 8px rgba(230, 81, 0, 0.05);
+    }
+
+    .notice-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      line-height: 1.2;
+    }
+
+    .notice-content {
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #4e342e;
+    }
+
+    .notice-content strong {
+      color: #d84315;
+      font-weight: 700;
+    }
+
     /* Prévia de Molduras */
     .frames-preview-section {
       width: 100%;
@@ -472,6 +731,47 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-corporate {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(0, 30, 80, 0.15);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+      cursor: default;
+    }
+
+    .footer-corporate:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      background: rgba(255, 255, 255, 0.98);
+      border-color: rgba(0, 30, 80, 0.28);
+    }
+
+    .footer-vw-logo {
+      width: 22px;
+      height: 22px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .footer-plant-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #001e50;
+      letter-spacing: 0.3px;
     }
 
     /* MODAL DE CÂMERA (MOBILE-FIRST FULLSCREEN) */
@@ -1052,6 +1352,101 @@
       </div>
     </section>
 
+    <!-- Informativo Corporativo Volkswagen: Exames sem Coparticipação -->
+    <section class="company-campaign-card" id="campanha-volkswagen-info">
+      
+      <div class="company-header-badge">
+        <div class="company-tag">
+          <img src="vw-logo.svg" alt="Volkswagen" class="company-vw-icon">
+          <span>Volkswagen</span>
+        </div>
+        <div class="coparticipation-tag">
+          <span>✨</span>
+          <span>Sem Coparticipação</span>
+        </div>
+      </div>
+
+      <div class="company-slogan-wrap">
+        <span class="company-submotto">Juntos por um amanhã mais humano</span>
+        <h3 class="company-motto">Saúde é o caminho para novas histórias</h3>
+      </div>
+
+      <p class="company-intro-text">
+        A prevenção é uma das formas mais eficazes de cuidar da saúde. Pensando nisso, durante a campanha <strong>Outubro Rosa 2026</strong>, colaboradoras e dependentes elegíveis poderão realizar exames preventivos importantes <strong>sem coparticipação</strong> para o acompanhamento da saúde da mulher.
+      </p>
+
+      <div class="company-dates-pill">
+        <span class="dates-icon">🗓️</span>
+        <div class="dates-text">
+          <strong>Período da Campanha</strong>
+          <span>1º de outubro a 31 de dezembro de 2026</span>
+        </div>
+      </div>
+
+      <p class="company-initiative-goal">
+        A iniciativa busca incentivar o diagnóstico precoce, ampliar o acesso aos cuidados preventivos e promover mais qualidade de vida para todos.
+      </p>
+
+      <div class="exams-section-heading">
+        <span>🩺</span>
+        <span>Exames disponíveis durante o período da campanha:</span>
+      </div>
+
+      <div class="exams-list">
+        <div class="exam-card-item">
+          <div class="exam-icon-circle">🔬</div>
+          <div class="exam-details">
+            <div class="exam-name">Mamografia Bilateral</div>
+            <div class="exam-eligibility">
+              <span class="eligibility-badge">40+ anos</span>
+              <span>Para titulares e dependentes a partir de 40 anos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-card-item">
+          <div class="exam-icon-circle">🩺</div>
+          <div class="exam-details">
+            <div class="exam-name">Ultrassonografia de Mamas Bilateral</div>
+            <div class="exam-eligibility">
+              <span class="eligibility-badge">40+ anos</span>
+              <span>Para titulares e dependentes a partir de 40 anos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-card-item">
+          <div class="exam-icon-circle">📋</div>
+          <div class="exam-details">
+            <div class="exam-name">Exame Citopatológico do Colo do Útero (Papanicolau)</div>
+            <div class="exam-eligibility">
+              <span class="eligibility-badge badge-all">Todas as faixas etárias</span>
+              <span>Para todas as faixas etárias elegíveis</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="exam-card-item">
+          <div class="exam-icon-circle">🌸</div>
+          <div class="exam-details">
+            <div class="exam-name">Ultrassonografia Transvaginal e Pélvica</div>
+            <div class="exam-eligibility">
+              <span class="eligibility-badge badge-all">Todas as faixas etárias</span>
+              <span>Para todas as faixas etárias elegíveis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice-box">
+        <span class="notice-icon">⚠️</span>
+        <div class="notice-content">
+          <strong>ATENÇÃO:</strong> Os exames sem coparticipação estão disponíveis apenas para beneficiários elegíveis. É necessário atender aos critérios estabelecidos para cada procedimento, como faixa etária adequada e intervalo mínimo desde a última realização do exame (por exemplo, respeitando o intervalo mínimo estipulado pelas diretrizes médicas e pelo convênio).
+        </div>
+      </div>
+
+    </section>
+
     <!-- Mostruário de Molduras Disponíveis -->
     <section class="frames-preview-section">
       <div class="section-title">
@@ -1135,7 +1530,10 @@
     <footer>
       <p>Campanha Outubro Rosa • Mulheres em Ação</p>
       <p style="font-size: 0.85rem; margin-top: 5px; font-weight: 600; color: var(--primary);">Juntas somos mais fortes na prevenção.</p>
-      <p style="font-size: 0.95rem; margin-top: 4px; font-weight: 700; color: var(--text-main); letter-spacing: 0.3px;">Volkswagen PU Taubaté</p>
+      <div class="footer-corporate">
+        <img src="vw-logo.svg" alt="Volkswagen" class="footer-vw-logo">
+        <span class="footer-plant-name">Volkswagen PU Taubaté</span>
+      </div>
     </footer>
 
   </div>
